@@ -24,6 +24,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: demo-controller
+    namespace: default
 ---
 apiVersion: apps/v1beta2
 kind: Deployment
