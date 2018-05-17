@@ -45,6 +45,7 @@ Despite the fact that the general idea of a controller is quite simple, the "cor
 4. Now, happily fetch messages from your work queue and do whatever you need to do to make your controller functional.
 
 ### What to read / check next
+* This [blog post](https://medium.com/@cloudark/kubernetes-custom-controllers-b6c7d0668fdf). Pay particular attention to the picture showing dependencies and data flow between different parts of the Informer-Workqueue setup. Analyze it twice. Or three times - it's worth it!
 * This [Bitnami blog post](https://engineering.bitnami.com/articles/kubewatch-an-example-of-kubernetes-custom-controller.html) about the more complex version of the same logic called `kubewatch`.
 * [Official documentation about building controllers](https://github.com/kubernetes/sample-controller).
 * [This openshift blog entry](https://blog.openshift.com/kubernetes-deep-dive-code-generation-customresources/) about how to start with CRDs.
