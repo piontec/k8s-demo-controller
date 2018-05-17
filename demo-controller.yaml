@@ -1,0 +1,59 @@
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: demo-controller  
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: demo-controller  
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: demo-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: demo-controller
+subjects:
+  - kind: ServiceAccount
+    name: demo-controller
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: demo-controller
+  labels:
+    app: demo-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-controller
+  template:
+    metadata:
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ""
+      labels:
+        app: demo-controller
+    spec:
+      serviceAccountName: demo-controller      
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: "Exists"      
+      containers:
+      - name: demo-controller
+        resources:
+          requests:
+            cpu: 250m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        image: YOUR_URL:TAG
