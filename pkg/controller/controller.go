@@ -41,8 +41,6 @@ import (
 
 const maxRetries = 5
 
-var serverStartTime time.Time
-
 // Event indicate the informerEvent
 type Event struct {
 	key          string
@@ -142,7 +140,6 @@ func (c *Controller) Run(stopCh <-chan struct{}) {
 	defer c.queue.ShutDown()
 
 	c.logger.Info("Starting controller")
-	serverStartTime = time.Now().Local()
 
 	go c.informer.Run(stopCh)
 
